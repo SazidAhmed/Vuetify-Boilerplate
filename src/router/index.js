@@ -3,7 +3,10 @@ import VueRouter from 'vue-router'
 
 // Website 
 import Website from '../layouts/Website.vue'
+
 import Home from '../views/website/Home.vue'
+import Register from '../views/account/Register.vue'
+ 
 
 // Admin Portal
 import AdminPortal from '../layouts/AdminPortal.vue'
@@ -44,7 +47,13 @@ const routes = [
       },
     ]
   },
-
+  {
+    path: '/register',
+    component: Register,
+    name: 'Register'
+  },
+  
+  
   //Admin Portal
   {
     path: '/adminportal',

@@ -7,10 +7,9 @@
     </v-navigation-drawer>
     <!--Drawer Right-->
     <v-navigation-drawer app v-model="right" right width="344">
-      <v-list dense v-if="!loggedIn">
-        <Auth />
+      <v-list dense v-if="logIn">
+         <Register />
       </v-list>
-  
     </v-navigation-drawer>
 
     <!--Navbar-->
@@ -38,31 +37,34 @@
     <!-- Footer -->
       <Footer />
   </v-app>
+
 </template>
 
 <script>
-import Auth from '../components/auth/Auth.vue'
-import Footer from '../layouts/website/Footer.vue'
+import Register from '@/components/auth/Register.vue'
+import Footer from '@/layouts/website/Footer.vue'
 export default {
-  name: 'App',
+ name: 'App',
 
-  components: {
-    Auth,
-    Footer
-  },
-  data(){
-    return{
-      right: null,
-      right: false,
-      left: null,
-      left: false,
-      logIn: true,
-      loggedIn:false,
-      logdIn:true,
-    }
+components: {
+    Register,
+    Footer,
+ },
+    data(){
+        return{
+        right: null,
+        right: false,
+        left: null,
+        left: false,
+        logIn: true,
+        loggedIn:false,
+        logdIn:true,
+        }
+
   },
 };
 </script>
+
 <style >
 .removeLine{
     text-decoration: none;
