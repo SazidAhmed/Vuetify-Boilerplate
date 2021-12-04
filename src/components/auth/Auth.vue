@@ -1,10 +1,11 @@
 <template>
     <div>
-    <!-- login form -->
-        <div>
-          <Login />
-        </div>
-        
+      <div v-if="showSignUp">
+        <Login @showRegister="toggleAuth"/>
+      </div>
+      <div v-else>
+        <Register @showLogin="toggleAuth" />
+      </div>       
     </div>
 </template>
 
@@ -19,7 +20,7 @@ export default {
     },
     data(){
      return{
-        showLogin:true,
+        showSignUp:true,
         email:null,
         password:null,
         password2:null,
@@ -31,7 +32,7 @@ export default {
   methods:{
     toggleAuth(){
       console.log("toggle clicked")
-      this.showLogin = !this.showLogin
+      this.showSignUp = !this.showSignUp
     },
 
     submitLogin(){
