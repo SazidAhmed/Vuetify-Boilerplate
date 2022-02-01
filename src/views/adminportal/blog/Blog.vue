@@ -89,7 +89,7 @@
                             <v-row>
                                 <v-col cols="12" sm="12" md="12">
                                     <v-select
-                                        v-model="actionData.category"
+                                        v-model="actionData.category_id"
                                         :items="categories"
                                         item-text="name"
                                         item-value="id"
@@ -356,7 +356,7 @@ import axios from 'axios'
                 headers: [
                     { text: 'ID', align: 'start', sortable: true, value: 'id'},
                     { text: 'Image', align: 'start', sortable: false, value: 'image'},
-                    { text: 'Category', align: 'start', sortable: false, value: 'category'},
+                    { text: 'Category', align: 'start', sortable: false, value: 'category_id'},
                     { text: 'Title', align: 'start', sortable: false, value: 'title'},
                     { text: 'Body', align: 'start', sortable: true, value: 'body'},
                     { text: 'Active', align: 'start', sortable: true, value: 'active'},
@@ -416,9 +416,9 @@ import axios from 'axios'
             getBlogs(){
                 this.loading = true;
                 axios
-                    .get("/api/list")
+                    .get("/api/blogList")
                     .then((response) => {
-                        this.blogs = response.data.blogs;
+                        this.blogs = response.data.data;
                         this.loading = false;
                     })
                     .catch((error) => {
@@ -432,27 +432,30 @@ import axios from 'axios'
             },
             createBlogs() {
                 this.loading = true;
-                console.log(this.image, this.image.name);
                 const config = {
                     headers: {
                         "content-type": "multipart/form-data",
                     },
                 };
                 let formData = new FormData();
-                    formData.append("category", this.category);
+                    formData.append("category_id", this.category);
                     formData.append("title", this.title);
                     formData.append("body", this.body);
                     formData.append("active", this.active);
                     formData.append("date", this.date);
                     formData.append("time", this.time);
-                    formData.append("image", this.image, this.image.name);
+                    if(this.image === null){
+                        formData.append("image", null);
+                    }else{
+                        formData.append("image", this.image, this.image.name);
+                    }
                 axios
-                    .post("api/create", formData, config)
-                    .then(() => {
+                    .post("api/blogCreate", formData, config)
+                    .then((response) => {
                         this.color = 'green';
                         this.snackbar = true;
                         this.text = "Record Added Successfully!";
-                        this.getBlogs();
+                        this.blogs.push(response.data);
                         this.title='';
                         this.body='';
                         this.createDialog=false;
@@ -471,7 +474,7 @@ import axios from 'axios'
            
             editBtn(id) {
                  axios
-                    .get("/api/getById/" + id)
+                    .get("/api/blogGetById/" + id)
                         .then((response) => {
                             console.log(response.data);
                             this.actionData = response.data;
@@ -484,33 +487,45 @@ import axios from 'axios'
             },
             updateBlogs(){
                 this.loading = true;
+                const id = this.actionData.id;
                 const config = {
                     headers: {
                         "content-type": "multipart/form-data",
                     },
                 };
                 let formData = new FormData();
-                    formData.append("category", this.actionData.category);
+                    formData.append("category_id", this.actionData.category_id);
                     formData.append("title", this.actionData.title);
                     formData.append("body", this.actionData.body);
                     formData.append("active", this.actionData.active);
                     formData.append("date", this.actionData.date);
                     formData.append("time", this.actionData.time);
-                     formData.append("image", this.image, this.image.name);
+                    if(this.image === null){
+                        formData.append("image", null);
+                    }else{
+                        formData.append("image", this.image, this.image.name);
+                    }
                     formData.append("_method", "put");
                 axios
-                    .post("api/update/" + this.actionData.id, formData, config)
-                    .then(() => {
+                    .post("api/blogUpdate/" + id, formData, config)
+                    .then((response) => {
+                        console.log(response.data);
                         this.color = 'green';
                         this.snackbar = true;
                         this.text = "Record Updated Successfully!";
                         this.title='';
                         this.body='';
                         this.updateDialog=false;
-                        this.getBlogs();
+                        // this. getBlogs();
+                        let arr = this.blogs;
+                        arr.slice(0).forEach((obj) => {
+                            if(obj.id == id)
+                                arr.splice(arr.indexOf(obj), 1, response.data);
+                        });
                         this.loading = false;
                     })
-                    .catch(() => {
+                    .catch((error) => {
+                        console.log(error);
                         this.color = 'red';
                         this.snackbar = true;
                         this.text = "Something is Wrong! Try Again!";
@@ -521,7 +536,7 @@ import axios from 'axios'
 
             deleteBtn(id) {
                 axios
-                    .get("/api/getById/" + id)
+                    .get("/api/blogGetById/" + id)
                         .then((response) => {
                             this.actionData = response.data;
                             console.log('delete data:',this.actionData);
@@ -534,12 +549,14 @@ import axios from 'axios'
             deleteData(){
                 this.loading = true;
                 axios
-                    .delete("api/delete/" + this.actionData.id)
+                    .delete("api/blogDelete/" + this.actionData.id)
                     .then(() => {
                         this.color = 'green';
                         this.snackbar = true;
                         this.text = "Record Deleted Successfully!";
-                        this.getBlogs();
+                        this.blogs = this.blogs.filter(data => {
+                            return data.id !== this.actionData.id
+                        })
                         this.deleteDialog = false;
                         this.loading = false;
                     })
@@ -550,7 +567,16 @@ import axios from 'axios'
                         this.deleteDialog = false;
                         this.loading = false;
                     })
-            }
+            },
+
+            spliceArray(){
+                var arr = [{0:0},{i:1},{i:"test"},{i:"Something else"},{i:"Test"},5];
+                arr.slice(0).forEach(function(item) {
+                    if(item != 5)
+                    arr.splice(arr.indexOf(item), 1);
+                });
+                console.log(arr);
+            },
         }
     }
 </script>
