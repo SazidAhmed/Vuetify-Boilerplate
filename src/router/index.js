@@ -1,21 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-// Website 
-import Website from '../layouts/Website.vue'
-
-import Home from '../views/website/Home.vue'
-import Register from '../views/account/Register.vue'
- 
-
-// Admin Portal
-import AdminPortal from '../layouts/AdminPortal.vue'
-import Dashboard from '../views/adminportal/Dashboard.vue'
-import Settings from '../views/adminportal/Settings.vue'
-import Profile from '../views/adminportal/user/Profile.vue'
-
-import Blog from '../views/adminportal/blog/Blog.vue'
-
+import GuestRoutes from './guest/guest'
+import UserRoutes from './admin/users'
+import DashboardRoutes from './admin/dashboard'
+import ConfigRoutes from './admin/config'
+import BlogRoutes from './admin/blog'
 
 Vue.use(VueRouter)
 
@@ -34,59 +24,12 @@ const requireAuth = (to, from, next) => {
 // }
 
 const routes = [
-  //Website
-  {
-    path: '/',
-    component: Website,
-    children:[
-      {
-        path: '',
-        name: 'Home',
-        component: Home,
-        // beforeEnter: requireNoAuth
-      },
-    ]
-  },
-  {
-    path: '/register',
-    component: Register,
-    name: 'Register'
-  },
-  
-  
-  //Admin Portal
-  {
-    path: '/adminportal',
-    component: AdminPortal,
-    children:[
-      {
-        path: '',
-        name: 'Dashboard',
-        component:Dashboard,
-        
-      },
-      {
-        path: '/profile',
-        name: 'Profile',
-        component: Profile,
-        
-      },
-      {
-        path: '/settings',
-        name: 'Settings',
-        component: Settings,
-       
-      },
-      {
-        path: '/blog',
-        name: 'Blog',
-        component: Blog,
-        
-      },
-    ]
-  },
+  ...GuestRoutes,
+  ...UserRoutes,
+  ...DashboardRoutes,
+  ...ConfigRoutes,
+  ...BlogRoutes
 ]
-
 
 const router = new VueRouter({
   mode: 'history',
