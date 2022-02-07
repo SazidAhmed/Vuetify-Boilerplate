@@ -1,13 +1,12 @@
 
-import Website from '@/layouts/Website.vue'
-import Home from '@/views/website/Home.vue'
-import Register from '@/views/account/Register.vue'
+import Guest from '@/layouts/Guest.vue'
+import Home from '@/views/guest/Home.vue'
 
 const GuestRoutes = [
   //Website
   {
     path: '/',
-    component: Website,
+    component: Guest,
     children:[
       {
         path: '',
@@ -16,11 +15,6 @@ const GuestRoutes = [
         // beforeEnter: requireNoAuth
       },
     ]
-  },
-  {
-    path: '/register',
-    component: Register,
-    name: 'Register'
-  },
+  }
 ]
 export default GuestRoutes

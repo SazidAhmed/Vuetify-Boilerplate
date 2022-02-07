@@ -28,11 +28,11 @@
 </template>
 
 <script>
-import RightDrawer from '@/layouts/portal/RightDrawer.vue'
-import LeftDrawer from '@/layouts/portal/LeftDrawer.vue'
-import TopNav from '@/layouts/portal/TopNav.vue'
+import RightDrawer from '@/layouts/admin/RightDrawer.vue'
+import LeftDrawer from '@/layouts/admin/LeftDrawer.vue'
+import TopNav from '@/layouts/admin/TopNav.vue'
 export default {
-  name: 'Portal',
+  name: 'adminportal',
   components: {
     LeftDrawer,
     RightDrawer,

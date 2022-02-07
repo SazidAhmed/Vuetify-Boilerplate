@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-navigation-drawer app v-model="right" right width="344">
+    <v-navigation-drawer app v-model="rightDrawer" fixed right width="344">
       <v-list dense>
         <Auth />
       </v-list>
@@ -9,15 +9,15 @@
 </template>
 
 <script>
-import Auth from '@/components/auth/Auth.vue'
+import Auth from '@/views/guest/auth/Auth.vue'
 export default {
-components: {
+  props:['rightDrawer'],
+  components: {
     Auth
   },
    data(){
     return{
-      right: null,
-      right: false,
+     //
     }
   },
 }

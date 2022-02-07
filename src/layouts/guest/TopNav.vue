@@ -9,7 +9,7 @@
         </div>
       </router-link>
       <v-spacer></v-spacer>
-      <v-btn color="white" text rounded class="hidden-sm-and-down" @click.stop="right = !right">Login<v-icon>mdi-login</v-icon></v-btn>
+      <v-btn color="white" text rounded class="hidden-sm-and-down" @click="toggleRightDrawer"><v-icon>mdi-login</v-icon></v-btn>
     </v-app-bar>
   </div>
 </template>
@@ -18,15 +18,15 @@
 export default {
  data(){
     return{
-      right: null,
-      right: false,
-      left: null,
-      left: false,
-      logIn: true,
-      loggedIn:false,
-      logdIn:true,
+     
     }
   },
+   methods: {
+    toggleRightDrawer(){
+      console.log('toggle rightDrawer')
+      this.$emit('toggleRight')
+    }
+  }
 }
 </script>
 

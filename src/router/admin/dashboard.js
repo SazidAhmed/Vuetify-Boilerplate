@@ -1,10 +1,10 @@
-import AdminPortal from '@/layouts/AdminPortal.vue'
+import Admin from '@/layouts/Admin.vue'
 import Dashboard from '@/views/adminportal/Dashboard.vue'
 
 const DashboardRoutes = [
   {
     path: '/adminportal',
-    component: AdminPortal,
+    component: Admin,
     children:[
       {
         path: '',

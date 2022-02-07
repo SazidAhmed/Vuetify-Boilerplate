@@ -10,8 +10,8 @@
 </template>
 
 <script>
-  import Login from '@/components/auth/Login.vue'
-  import Register from '@/components/auth/Register.vue'
+  import Login from '@/views/guest/auth/Login.vue'
+  import Register from '@/views/guest/auth/Register.vue'
 export default {
   name: 'Auth',
     components: {
@@ -28,7 +28,6 @@ export default {
         error: null,
         }
     },
-
   methods:{
     toggleAuth(){
       console.log("toggle clicked")

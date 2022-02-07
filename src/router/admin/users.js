@@ -1,10 +1,10 @@
-import AdminPortal from '@/layouts/AdminPortal.vue'
+import Admin from '@/layouts/Admin.vue'
 import Profile from '@/views/adminportal/user/Profile.vue'
 
 const UserRoutes = [
   {
     path: '/adminportal',
-    component: AdminPortal,
+    component: Admin,
     children:[
       {
         path: '/profile',

@@ -1,10 +1,10 @@
-import AdminPortal from '@/layouts/AdminPortal.vue'
+import Admin from '@/layouts/Admin.vue'
 import Blog from '@/views/adminportal/blog/Blog.vue'
 
 const BlogRoutes = [
   {
     path: '/adminportal',
-    component: AdminPortal,
+    component: Admin,
     children:[
       {
         path: '/blog',
