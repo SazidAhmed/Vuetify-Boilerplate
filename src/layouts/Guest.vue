@@ -3,7 +3,7 @@
     <!--Drawer Left-->
     <LeftDrawer :leftDrawer="leftDrawer" />
     <!--Drawer Right-->
-    <RightDrawer :rightDrawer="rightDrawer"/>
+    <RightDrawer :rightDrawer.sync="rightDrawer"/>
     <!--Navbar-->
     <TopNav @toggleRight="toggleRightDrawer" />
     <!-- Main Content -->
