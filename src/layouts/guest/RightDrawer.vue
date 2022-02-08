@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-navigation-drawer app v-model="rightDrawer" fixed right width="344">
+    <v-navigation-drawer app :value="rightDrawer" fixed right width="344">
       <v-list dense>
         <Auth />
       </v-list>
