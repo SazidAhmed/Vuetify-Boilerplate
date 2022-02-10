@@ -1,9 +1,9 @@
 <template>
   <v-app id="inspire">
     <!--Drawer Left-->
-    <LeftDrawer :leftDrawer="leftDrawer" />
+    <!-- <LeftDrawer :leftDrawer="leftDrawer" /> -->
     <!--Drawer Right-->
-    <RightDrawer :rightDrawer.sync="rightDrawer"/>
+    <RightDrawer :rightDrawer="rightDrawer"/>
     <!--Navbar-->
     <TopNav @toggleRight="toggleRightDrawer" />
     <!-- Main Content -->
