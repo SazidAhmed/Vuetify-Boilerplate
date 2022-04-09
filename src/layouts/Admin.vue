@@ -84,6 +84,7 @@ export default {
       this.$router.push({ name: 'Home' })
     },
     toggleLeftDrawer(){
+      console.log('toggleLeftDrawer')
       this.leftDrawer =!this.leftDrawer
     },
     toggleRightDrawer(){

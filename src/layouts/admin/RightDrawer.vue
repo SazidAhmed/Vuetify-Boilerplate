@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-navigation-drawer app v-model="rightDrawer" fixed right temporary width="300">
+    <v-navigation-drawer app :value="rightDrawer" @input="$emit('toggleRight')" fixed right temporary width="300">
       <!-- avater -->
       <v-layout column align-center>
         <v-flex class="mt-4 mb-4">

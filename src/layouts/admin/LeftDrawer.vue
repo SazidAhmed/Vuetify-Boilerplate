@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-navigation-drawer app v-model="leftDrawer">
+    <v-navigation-drawer app :value="leftDrawer" @input="$emit('toggleLeft')">
         <!-- avater -->
         <v-layout column align-center>
           <v-avatar class="mt-5" size="50">

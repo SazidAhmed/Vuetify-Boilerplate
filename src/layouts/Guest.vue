@@ -1,11 +1,30 @@
 <template>
   <v-app id="inspire">
     <!--Drawer Left-->
-    <!-- <LeftDrawer :leftDrawer="leftDrawer" /> -->
+    <v-navigation-drawer app v-model="leftDrawer" fixed left width="344">
+      <v-list dense>
+        <Auth />
+      </v-list>
+    </v-navigation-drawer>
     <!--Drawer Right-->
-    <RightDrawer :rightDrawer="rightDrawer"/>
-    <!--Navbar-->
-    <TopNav @toggleRight="toggleRightDrawer" />
+    <v-navigation-drawer app v-model="rightDrawer" fixed right width="344">
+      <v-list dense>
+        <Auth />
+      </v-list>
+    </v-navigation-drawer>
+    <!--Top Navbar-->
+     <v-app-bar app color="primary" dark>
+      <v-app-bar-nav-icon class="hidden-md-and-up" @click.stop="leftDrawer = !leftDrawer"></v-app-bar-nav-icon>
+      <v-spacer></v-spacer>
+      <router-link :to="{ name: 'Home' }">
+        <div class="d-flex align-center">
+          <v-btn text rounded color="white">Techminate</v-btn>
+        </div>
+      </router-link>
+      <v-spacer></v-spacer>
+      <!-- <v-app-bar-nav-icon class="hidden-sm-and-down" @click.stop="rightDrawer = !rightDrawer"></v-app-bar-nav-icon> -->
+      <v-btn color="white" text rounded  @click.stop="rightDrawer = !rightDrawer"><v-icon>mdi-login</v-icon></v-btn>
+    </v-app-bar>
     <!-- Main Content -->
     <v-main>
       <!-- Provides the application the proper gutter -->
@@ -20,24 +39,19 @@
 </template>
 
 <script>
-import TopNav from '@/layouts/guest/TopNav.vue'
-import LeftDrawer from '@/layouts/guest/LeftDrawer.vue'
-import RightDrawer from '@/layouts/guest/RightDrawer.vue'
 import Footer from '@/layouts/guest/Footer.vue'
+import Auth from '@/views/guest/auth/Auth.vue'
 export default {
   name: 'App',
 
   components: {
-    LeftDrawer,
-    RightDrawer,
-    TopNav,
-    Footer
+    Footer,
+    Auth
   },
   data(){
     return{
       rightDrawer: false,
-      leftDrawer: true,
-      loggedIn:false,
+      leftDrawer: false,
       snackbar: false,
     }
   },
